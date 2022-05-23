@@ -1,0 +1,41 @@
+*-----------------------------------------------------------
+* Title      : Sort array in ascedding order
+* Written by : Mohammad Mohaidat
+* Date       : 23/12/2021
+* Description: Implementatipn Of Bubble Sort Alogrithm In MC68000 Assembly
+*-----------------------------------------------------------
+    ORG    $1200        ;our data on address $1200 size = 32 words
+ARR DC.W   15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0,-1,-2,-3,-4,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,-15,-16
+    ORG    $4000
+START:
+    MOVEA #ARR,A0       ;MOVE address of array to A0
+    MOVEQ #31,D0        ;D0 is length of array but we compare till [length -1] so D0 =31
+    MOVEQ #0,D1         ;D1 is index
+inner_loop:
+    cmp D0,D1           
+    BEQ outer_loop      ;if index=length then we will repeat loop from from index 0 to  [(pervious length) -1] 
+    MOVE D1,D4
+    LSL #1,D4           ;D4 is index in bytes (we can use mul but costs more cycles)
+    MOVE.W (A0,D4) , D2
+    MOVE (2,A0,D4) , D3
+    CMP D2,D3           ; if(arr[j] > arr [j+1]) then we will swap between them
+    BLT SWAP
+    ADDQ #1,D1          ; increment index
+    jmp inner_loop
+SWAP: 
+    MOVE D2 , (2,A0,D4) 
+    MOVE D3 , (A0,D4) 
+    ADDQ #1,D1          ; increment index
+    JMP inner_loop
+outer_loop:
+    MOVEQ #0,D1
+    SUBQ #1,D0          ; D0 refers to invalid indices , each loop we gurantee the validity of last index , so in next loop we will not check it (better performance)
+    CMP  #0,D0          ; this means all indices is correct
+    BNE inner_loop
+
+
+* Put variables and constants here
+
+    END    START        ; last line of source
+
+
