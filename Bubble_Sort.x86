@@ -2,7 +2,7 @@
 * Title      : Sort array in ascedding order
 * Written by : Mohammad Mohaidat
 * Date       : 23/12/2021
-* Description: Implementatipn Of Bubble Sort Alogrithm In MC68000 Assembly
+* Description: Implementation Of Bubble Sort Algorithm using MC68000 Assembly
 *-----------------------------------------------------------
     ORG    $1200        ;our data on address $1200 size = 32 words
 ARR DC.W   15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0,-1,-2,-3,-4,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,-15,-16
